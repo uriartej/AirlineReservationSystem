@@ -10,7 +10,7 @@ def input_positive_int(prompt):
             return value
         except ValueError as e:
             print(e)
-
+            
 def input_positive_float(prompt):
     while True:
         try:

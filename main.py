@@ -1,6 +1,97 @@
 from reservation_system import ReservationSystem
 import sqlite3
 
+def input_positive_int(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            if value <= 0:
+                raise ValueError("Please enter a positive integer.")
+            return value
+        except ValueError as e:
+            print(e)
+
+def input_positive_float(prompt):
+    while True:
+        try:
+            value = float(input(prompt))
+            if value <= 0:
+                raise ValueError("Please enter a positive number.")
+            return value
+        except ValueError as e:
+            print(e)
+
+def create_flight(system):
+    flight_number = input("Flight Number: ")
+    source = input("Source: ")
+    destination = input("Destination: ")
+    capacity = input_positive_int("Capacity: ")
+    
+    if system.create_flight(flight_number, source, destination, capacity):
+        print("Flight created successfully.")
+    else:
+        print("Failed to create flight.")
+
+def create_passenger(system):
+    name = input("Passenger Name: ")
+    
+    if system.create_passenger(name):
+        print("Passenger added successfully.")
+    else:
+        print("Failed to add passenger.")
+
+def reserve_seat(system):
+    passenger_name = input("Passenger Name: ")
+    flight_id = input_positive_int("Flight ID: ")
+    
+    passenger_id = system.get_passenger_id(passenger_name)
+    if passenger_id is None:
+        print("Passenger not found.")
+        return
+    
+    if system.reserve_seat(passenger_id, flight_id):
+        print("Seat reserved successfully.")
+    else:
+        print("Seat reservation failed (no available seats or flight not found).")
+
+def create_food_item(system):
+    name = input("Food Item Name: ")
+    price = input_positive_float("Price: ")
+    
+    if system.create_food_item(name, price):
+        print("Food item added successfully.")
+    else:
+        print("Failed to add food item.")
+
+def create_streaming_service(system):
+    name = input("Streaming Service Name: ")
+    price = input_positive_float("Price: ")
+    
+    if system.create_streaming_service(name, price):
+        print("Streaming service added successfully.")
+    else:
+        print("Failed to add streaming service.")
+
+def create_seat_type(system):
+    type = input("Seat Type: ")
+    price_multiplier = input_positive_float("Price Multiplier: ")
+    
+    if system.create_seat_type(type, price_multiplier):
+        print("Seat type added successfully.")
+    else:
+        print("Failed to add seat type.")
+
+def list_food_items(system):
+    for item in system.list_food_items():
+        print(f"ID: {item[0]}, Name: {item[1]}, Price: ${item[2]}")
+
+def list_streaming_services(system):
+    for service in system.list_streaming_services():
+        print(f"ID: {service[0]}, Name: {service[1]}, Price: ${service[2]}")
+
+def list_seat_types(system):
+    for type in system.list_seat_types():
+        print(f"ID: {type[0]}, Type: {type[1]}, Price Multiplier: x{type[2]}")
 
 def main(system):
     while True:

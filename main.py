@@ -10,7 +10,7 @@ def input_positive_int(prompt):
             return value
         except ValueError as e:
             print(e)
-            
+
 def input_positive_float(prompt):
     while True:
         try:
@@ -92,6 +92,16 @@ def list_streaming_services(system):
 def list_seat_types(system):
     for type in system.list_seat_types():
         print(f"ID: {type[0]}, Type: {type[1]}, Price Multiplier: x{type[2]}")
+
+def list_available_flights(system):
+    flights = system.get_available_flights()
+    if flights:
+        print("\nAvailable Flights:")
+        for flight in flights:
+            print(f"Flight ID: {flight[0]}, Flight Number: {flight[1]}, Source: {flight[2]}, Destination: {flight[3]}, Capacity: {flight[4]}, Available Seats: {flight[5]}")
+    else:
+        print("No available flights at the moment.")
+
 
 def main(system):
     while True:

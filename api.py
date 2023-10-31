@@ -81,3 +81,86 @@ def reserve_seat_endpoint():
             return jsonify({"message": "Seat reservation failed. No available seats."}), 400
     except Exception as e:
         abort(400, description=str(e))
+
+
+@app.route('/available_flights', methods=['GET'])
+def list_available_flights():
+    conn = get_db()
+    system = ReservationSystem(conn)
+    flights = system.get_available_flights()
+    return jsonify(flights), 200
+
+
+@app.route('/create_food_item', methods=['POST'])
+def create_food_item_endpoint():
+    conn = get_db()
+    system = ReservationSystem(conn)
+    data = request.json
+    try:
+        name = data.get('name')
+        price = data.get('price')
+        if not (name and isinstance(price, (int, float))):
+            abort(400, description="Invalid data provided for food item creation")
+        system.create_food_item(name, price)
+        return jsonify({"message": "Food item created successfully!"}), 201
+    except Exception as e:
+        abort(400, description=str(e))
+
+
+@app.route('/create_streaming_service', methods=['POST'])
+def create_streaming_service_endpoint():
+    conn = get_db()
+    system = ReservationSystem(conn)
+    data = request.json
+    try:
+        name = data.get('name')
+        price = data.get('price')
+        if not (name and isinstance(price, (int, float))):
+            abort(400, description="Invalid data provided for streaming service creation")
+        system.create_streaming_service(name, price)
+        return jsonify({"message": "Streaming service created successfully!"}), 201
+    except Exception as e:
+        abort(400, description=str(e))
+
+
+@app.route('/create_seat_type', methods=['POST'])
+def create_seat_type_endpoint():
+    conn = get_db()
+    system = ReservationSystem(conn)
+    data = request.json
+    try:
+        type = data.get('type')
+        price_multiplier = data.get('price_multiplier')
+        if not (type and isinstance(price_multiplier, (int, float))):
+            abort(400, description="Invalid data provided for seat type creation")
+        system.create_seat_type(type, price_multiplier)
+        return jsonify({"message": "Seat type created successfully!"}), 201
+    except Exception as e:
+        abort(400, description=str(e))
+
+
+@app.route('/list_food_items', methods=['GET'])
+def list_food_items():
+    conn = get_db()
+    system = ReservationSystem(conn)
+    food_items = system.list_food_items()
+    return jsonify(food_items), 200
+
+
+@app.route('/list_streaming_services', methods=['GET'])
+def list_streaming_services():
+    conn = get_db()
+    system = ReservationSystem(conn)
+    streaming_services = system.list_streaming_services()
+    return jsonify(streaming_services), 200
+
+
+@app.route('/list_seat_types', methods=['GET'])
+def list_seat_types():
+    conn = get_db()
+    system = ReservationSystem(conn)
+    seat_types = system.list_seat_types()
+    return jsonify(seat_types), 200
+
+if __name__ == '__main__':
+    app.run(debug=os.environ.get('FLASK_DEBUG', 'False').lower() == 'true')

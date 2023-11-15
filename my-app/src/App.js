@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import AvailableFlights from './AvailableFlights';
+// Import the CreateFlightForm component
+import CreateFlightForm from './CreateFlightForm';
 
 function App() {
   return (
@@ -9,6 +11,7 @@ function App() {
         <h1>Flight It Your Way</h1>
       </header>
       <main>
+        <CreateFlightForm />
         <AvailableFlights />
       </main>
     </div>

@@ -1,0 +1,33 @@
+/* Add these styles to your Cart.css */
+.cart-container {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+  
+  .cart-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .cart-item:last-child {
+    border-bottom: none;
+  }
+  
+  .cart-flight-details {
+    margin-bottom: 5px;
+  }
+  
+  .cart-user-details {
+    margin-bottom: 5px;
+  }
+  
+  .cart-selection-details {
+    margin-bottom: 5px;
+  }
+  
+  .cart-email {
+    margin-top: 20px;
+  }
+  

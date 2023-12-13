@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import './Cart.css';
 import CheckoutForm from './CheckoutForm';
+import CreateFlightForm from './CreateFlightForm';
 import calculateTotal from './calculation';
 
 const CartDisplay = ({ cart, handleCheckout, handleRemoveFromCart, total }) => {
